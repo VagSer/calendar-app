@@ -153,7 +153,6 @@ onMounted(() => {
       <AppCalendarDaysNames :isFirstDaySunday :daysList="props.lang.daysShort"/>
       <AppCalendarWeek
         v-for="week of totalMonth"
-        @updateDate="updateDate"
         :key="week[0]"
         :month="currentDate.Month"
         v-model:selectedDate="selectedDate"
