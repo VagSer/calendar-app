@@ -5,8 +5,6 @@ import AppCalendar from './components/AppCalendar.vue';
 const selectedLanguage = ref('ru')
 const selectedFirstDay = ref('Sunday')
 
-const isFirstDaySunday = computed(() => selectedFirstDay.value === 'Sunday')
-
 const appLanguage = ref({
   ru: {
     daysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
@@ -26,7 +24,7 @@ const appLanguage = ref({
     firstDays: ['Sunday', 'Monday'],
     settingsTitle: 'Settings',
     closeTitle: 'Close',
-    firstDayInAWeek: 'First day in a week:',
+    firstDayInAWeek: 'First day of the week:',
     months: [
       'January', 'February', 'March', 
       'April', 'May', 'June', 
@@ -35,6 +33,8 @@ const appLanguage = ref({
     ]
   }
 })
+
+const isFirstDaySunday = computed(() => selectedFirstDay.value === 'Sunday')
 
 const openSettings = () => document.querySelector('#settings').showModal()
 const closeSettings = () => document.querySelector('#settings').close()
