@@ -55,28 +55,20 @@ const totalMonth = computed(() => {
   let isWeekFull = false
   while (!isWeekFull) {
     if (innerCurrentDate.getDay() === dayOfTheWeek) {
-        firstFullWeek.push(innerCurrentDate)
-        innerCurrentDate = new Date(
-          firstDay.getFullYear(), 
-          firstDay.getMonth(), 
-          innerCurrentDate.getDate() + 1);
-      }
-    if (!props.isFirstDaySunday) {
-      if (dayOfTheWeek === 0 && firstFullWeek.length < 7) {
-        firstFullWeek.length = 0
-      }
+      firstFullWeek.push(innerCurrentDate)
       dayOfTheWeek++
-      if (dayOfTheWeek > 6) {
-        dayOfTheWeek = 0
-      }
-    } else {
-        dayOfTheWeek++
-        if (dayOfTheWeek === 7 && firstFullWeek.length !== 7) {
-          firstFullWeek.length = 0;
-          dayOfTheWeek = 0;
-        }
-      }
-    isWeekFull = firstFullWeek.length === 7
+      if (dayOfTheWeek === 7) dayOfTheWeek = 0
+    }
+    innerCurrentDate = new Date(
+      firstDay.getFullYear(), 
+      firstDay.getMonth(), 
+      innerCurrentDate.getDate() + 1);
+    props.isFirstDaySunday?
+      isWeekFull = firstFullWeek.length === 7
+      : isWeekFull = firstFullWeek.length === 8
+  }
+  if (!props.isFirstDaySunday) {
+    firstFullWeek.shift()
   }
   month.push(firstFullWeek)
   if (firstFullWeek[0].getDate() > 1) {
@@ -95,7 +87,7 @@ const totalMonth = computed(() => {
     month.push(newWeek)
     isLastDayWasAdded = newWeek.some((day) => day.getDate() === lastDayInMonth.value)
   }
-  return month;
+  return month
 })
 
 const updateMonth = (newValue) => {
