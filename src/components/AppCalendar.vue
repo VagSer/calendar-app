@@ -116,10 +116,6 @@ const updateMonth = (newValue) => {
   }
 }
 
-const updateDate = (day) => {
-  console.log(day)
-}
-
 onMounted(() => {
   let newDate = null
   if (props.date) {
