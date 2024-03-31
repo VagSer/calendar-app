@@ -51,24 +51,19 @@ const totalMonth = computed(() => {
   if (!currentDate.value.Day) return;
   const firstDay = new Date(currentDate.value.Year, currentDate.value.Month, 1);
   let innerCurrentDate = new Date(firstDay.getFullYear(), firstDay.getMonth(), 1);
-  let dayOfTheWeek = 0
-  let isWeekFull = false
+  let dayOfTheWeek = props.isFirstDaySunday? 0 : 1;
+  let isWeekFull = false;
   while (!isWeekFull) {
     if (innerCurrentDate.getDay() === dayOfTheWeek) {
-      firstFullWeek.push(innerCurrentDate)
-      dayOfTheWeek++
-      if (dayOfTheWeek === 7) dayOfTheWeek = 0
+      firstFullWeek.push(innerCurrentDate);
+      dayOfTheWeek++;
+      if (dayOfTheWeek === 7) dayOfTheWeek = 0 
     }
     innerCurrentDate = new Date(
       firstDay.getFullYear(), 
       firstDay.getMonth(), 
       innerCurrentDate.getDate() + 1);
-    props.isFirstDaySunday?
-      isWeekFull = firstFullWeek.length === 7
-      : isWeekFull = firstFullWeek.length === 8
-  }
-  if (!props.isFirstDaySunday) {
-    firstFullWeek.shift()
+    isWeekFull = firstFullWeek.length === 7
   }
   month.push(firstFullWeek)
   if (firstFullWeek[0].getDate() > 1) {
